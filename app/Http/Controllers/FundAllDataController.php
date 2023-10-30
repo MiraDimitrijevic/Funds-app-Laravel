@@ -19,7 +19,7 @@ class FundAllDataController extends Controller
     {
         
  if ($request->ajax()) {
-$funds = Fund::join('fund_categories', 'fund_categories.id', '=', 'funds.fundCategoryID')
+$funds = Fund::join('fund_categories', 'funds.fundCategoryID', '=', 'fund_categories.id')
         ->join('fund_sub_categories', 'fund_sub_categories.id', '=', 'funds.fundSubCategoryID')
          ->select('funds.id','funds.name','fund_categories.name AS categoryName','fund_sub_categories.name AS subCategoryName','funds.ISIN','funds.WKN');
 return Datatables::of($funds)

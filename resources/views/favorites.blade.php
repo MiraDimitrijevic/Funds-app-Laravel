@@ -24,6 +24,15 @@
     <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 </head>
 <body>
     <div>
@@ -52,7 +61,9 @@
             @endif
 </div>
 <div class="container">
+    <div>
     <h1>FUND DATA</h1>
+    </div>
     <table class="table table-bordered data-tableF" id="fundsTableFav">
         <thead>
             <tr>
@@ -71,12 +82,7 @@
 </body>
 <script type="text/javascript">
   $(function () {
-       
-    var table = $('.data-tableF').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('favfund.index') }}",
-        columns: [
+    var columns= [
             {data: 'name', name: 'name'},
             {data: 'categoryName', name: 'categoryName'},
             {data: 'subCategoryName', name: 'subCategoryName'},
@@ -85,6 +91,16 @@
             {data: 'action', name: 'action', orderable: false, searchable: false},
 
         ]
+       
+    var table = $('.data-tableF').DataTable({
+        dom: 'Bfrtip',
+      buttons: [
+      'pdf','excel'
+      ],
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('favfund.index') }}",
+        columns: columns
     });
     $('#fundsTableFav').on('click', '.delete' , function(){
      idFav=parseInt(this.id);

@@ -23,7 +23,7 @@ class FavoriteFundsController extends Controller
  
     if ($request->ajax()) {
 
-    $funds = Fund::join('fund_categories', 'fund_categories.id', '=', 'funds.fundCategoryID')
+    $funds = Fund::join('fund_categories', 'funds.fundCategoryID', '=', 'fund_categories.id')
     ->join('fund_sub_categories', 'fund_sub_categories.id', '=', 'funds.fundSubCategoryID')
     ->join('user_funds', 'user_funds.fundID','=','funds.id')
     ->where('user_funds.userID', '=', auth()->id())
